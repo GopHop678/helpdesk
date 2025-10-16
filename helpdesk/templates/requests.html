@@ -1,0 +1,53 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %} Заявки {% endblock %}
+
+{% block styles %}
+    <link href="{% static '/css/requests.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block body %}
+<div class="requests-content">
+
+    {% if not requests %}
+        <div class="errors-container">
+            <p class="error-message"> Нет заявок</p>
+        </div>
+    {% endif %}
+
+    <div class="requests-wrapper">
+    {% for request in requests %}
+        {% if request.category == 'PRINTER' %}
+        <div class="request-wrapper printer">
+        {% elif request.category == 'SOFTWARE' %}
+        <div class="request-wrapper software">
+        {% elif request.category == 'HARDWARE' %}
+        <div class="request-wrapper hardware">
+        {% elif request.category == 'ETC' %}
+        <div class="request-wrapper etc">
+        {% endif %}
+            <div class="request-header">
+                <span class="request-time">
+                    {{ request.request_date|date:"d.m.y" }} | {{ request.request_date|time:"H:i" }}
+                </span>
+                <span class="request-from">{{ request.sender.full_name }}</span>
+                <span class="request-place">{{ request.place }}</span>
+                <div class="complete-btn-wrapper"><button class="complete-btn">Выполнить</button></div>
+                <div class="reject-btn-wrapper"><button class="reject-btn">Отклонить</button></div>
+                <span class="request-status">{{ request.get_status_display }}</span>
+            </div>
+
+
+            <div class="request-body">
+                <span class="request-category">{{ request.get_category_display }}</span>
+                <span class="request-name">{{ request.request_text|truncatechars:'100' }}</span>
+                <span style="text-align: right;">
+                    <a class="request" href="/board/{{ request.id }}">Подробнее</a>
+                </span>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

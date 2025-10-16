@@ -1,0 +1,118 @@
+.requests-content {
+
+    .requests-wrapper {
+        margin: 2%;
+        display: flex;
+        flex-direction: column;
+        border: solid lightslategrey 2px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+
+        .request-wrapper:last-child {
+            border-bottom: none;
+        }
+
+        .request-wrapper {
+            /*border-right: solid rgba(0, 0, 0, 0.8) 1px;*/
+            /*border-left: solid rgba(0, 0, 0, 0.8) 1px;*/
+            border-bottom: solid lightslategrey 1px;
+            padding: 5px;
+            box-shadow: 0 10px 20px -3px rgba(255, 255, 255, 0.3) inset;
+            background: lightgray;
+
+            .request-header {
+                color: #434343;
+                font-size: 13px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+
+                .complete-btn-wrapper {
+                    margin-left: auto;
+                }
+
+                span:first-child {
+                    width: 80px;
+                }
+
+                /*span:last-child {*/
+                /*    margin-left: 0;*/
+                /*}*/
+            }
+
+            .request-body {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+
+                span:first-child {
+                    width: 80px;
+                }
+
+                span:last-child {
+                    margin-left: auto;
+                }
+            }
+
+            span {
+                margin: 0 10px 0;
+                box-sizing: content-box;
+            }
+
+            a {
+                border: none;
+                box-shadow: none;
+                color: black;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .printer {
+            box-shadow: 0 -30px 35px -25px #f5ff8e inset;
+        }
+        .software {
+            box-shadow: 0 -30px 35px -25px lightblue inset;
+        }
+        .hardware {
+            box-shadow: 0 -30px 35px -25px #d4a9ff inset;
+        }
+        .etc {
+        }
+    }
+}
+
+.complete-btn-wrapper, .reject-btn-wrapper {
+    button {
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0 10px 0;
+        color: #434343;
+        font-size: 11px;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: all 0.2s ease;
+    }
+
+    button:hover {
+        transform: scale(0.96);
+        /*text-decoration: underline;*/
+    }
+
+    .complete-btn:hover {
+        color: darkgreen;
+    }
+
+    .reject-btn:hover {
+        color: indianred;
+    }
+
+    button:active {
+        background-color: grey;
+    }
+}
+

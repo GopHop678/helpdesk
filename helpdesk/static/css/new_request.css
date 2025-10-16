@@ -1,0 +1,61 @@
+.new-request-content {
+
+    .new-request-wrapper {
+        margin: 15px;
+        background: #d8d8d8;
+        border: 3px solid lightslategrey;
+        border-top: 25px solid lightslategrey;
+        border-radius: 15px;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+    }
+}
+
+#requestForm {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+
+    .form-group > * {
+        margin: 10px;
+        box-sizing: border-box;
+    }
+
+    .category {
+        select {
+            font-weight: bold;
+            border: none;
+            background: inherit;
+        }
+        option {
+            background: inherit;
+            border: solid 1px black;
+        }
+    }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+
+        textarea {
+            width: calc(100% - 20px);
+            resize: vertical;
+            min-height: 450px;
+        }
+    }
+
+    .files {
+        display: flex;
+        flex-direction: row;
+    }
+
+    button {
+        position: relative;
+        margin-left: auto;
+        width: 150px;
+    }
+    button:hover {
+        cursor: pointer;
+        background: lightgreen;
+        transition: 0.4s ease-in-out;
+    }
+}
