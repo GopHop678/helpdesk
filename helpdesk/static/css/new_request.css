@@ -32,6 +32,18 @@
         }
     }
 
+    .place {
+        input {
+            font-weight: bold;
+        }
+
+        /*input:not(:placeholder-shown) {*/
+        input:valid {
+            border: none;
+            background: inherit;
+        }
+    }
+
     .description {
         display: flex;
         flex-direction: column;
