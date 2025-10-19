@@ -2,11 +2,13 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Exists, OuterRef, Prefetch
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 import datetime
+import random
 from .models import Worker, UploadedFile, Request
 
 
@@ -14,19 +16,8 @@ def get_role(user):
     worker = Worker.objects.get(user=user)
     if worker.role == 'admin':
         return 'admin'
-    if worker.role == 'curator':
-        return 'curator'
     if worker.role == 'worker':
         return 'worker'
-
-
-def get_question_type(question):
-    if question.question_type == 'choose_one':
-        return 'variants'
-    if question.question_type == 'pairs':
-        return 'pairs'
-    if question.question_type == 'open_answer':
-        return 'open'
 
 
 # @login_required(login_url='login')
@@ -155,25 +146,13 @@ def board_view(request):
 
 @login_required(login_url='login')
 def new_request(request):
+    if request.method == 'POST':
+        category = request.GET.get('category')
+        place = request.GET.get('place')
+        request_text = request.GET.get('request_text')
+        files = request.GET.get('files')
+        return redirect('board')
     return render(request, 'new_request.html')
-
-
-@login_required(login_url='login')
-def request_detailed(request, request_id):
-    worker = Worker.objects.get(user=request.user)
-    request_obj = Request.objects.get(id=request_id)
-    role = get_role(request.user)
-    if role in ['admin']:
-        pass
-    elif role in ['worker'] and request_obj.sender == worker:
-        pass
-    else:
-        return render(request, '403.html', {
-            'messages': ['Ошибка доступа']
-        })
-    return render(request, 'test_detailed.html', {
-        'test': request_obj,
-    })
 
 
 @login_required(login_url='login')
@@ -202,15 +181,53 @@ def delete_file(request, file_id):
 @csrf_protect
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('index')
+        full_name = request.POST.get('full_name')
+        password = request.POST.get('password')
+
+        worker = Worker.objects.filter(full_name=full_name)
+        if worker.exists():
+            user = authenticate(request, username=worker[0].user.username, password=password)
+            if user:
+                login(request, user)
+                return redirect('board')
+            else:
+                return render(request, 'login.html', {
+                    'errors': ['Неправильное имя пользователя или пароль']
+                })
         else:
-            messages.error(request, 'Invalid username or password')
+            return render(request, 'login.html', {
+                'errors': ['Пользователь с таким именем не существует']
+            })
     return render(request, 'login.html')
+
+
+@csrf_protect
+def user_signup(request):
+    if request.method == 'POST':
+
+        full_name = request.POST.get('full_name')
+        if Worker.objects.filter(full_name=full_name).exists():
+            return render(request, 'signup.html', {
+                'errors': ['Пользователь с таким именем уже существует']
+            })
+
+        username = f'user_{len(User.objects.all())}'
+        password1 = request.POST.get('password')
+        password2 = request.POST.get('password_confirmation')
+        if password1 == password2:
+            new_user = User.objects.create_user(
+                username=username,
+                password=password1,
+                # is_active=False
+            )
+            login(request, new_user)
+            Worker(user=new_user, full_name=full_name).save()
+            return redirect('board')
+        else:
+            return render(request, 'signup.html', {
+                'errors': ['Пароли не совпадают']
+            })
+    return render(request, 'signup.html')
 
 
 def user_logout(request):

@@ -1,7 +1,7 @@
 {% extends 'header.html' %}
 {% load static %}
 
-{% block title %} Новый тест {% endblock %}
+{% block title %} Новая заявка {% endblock %}
 
 {% block styles %}
     <link href="{% static '/css/new_request.css' %}" rel="stylesheet">
@@ -26,20 +26,21 @@
 
             <div class="form-group place">
                 <label>Где проблема:</label>
-                <input type="text" name="request_text" placeholder="..."  required>
+                <input type="text" name="place" placeholder="..."  required>
             </div>
 
             <div class="form-group description">
                 <label>Описание проблемы:</label>
-                <textarea name="request_text" rows="15" placeholder="..."></textarea>
+                <textarea name="request_text" rows="15" placeholder="..." required></textarea>
             </div>
 
             <div class="form-group files">
-                <label>Доп. файлы:</label>
-                <input name="request_text" type="file" accept="image/*" multiple>
+                <span>Доп. файлы:</span>
+                <label for="files">Выбрать файлы</label>
+                <input id="files" name="files" type="file" accept="image/*" multiple>
             </div>
 
-            <button type="submit">Создать заявку</button>
+            <button class="submit-btn" type="submit">Создать заявку</button>
         </form>
     </div>
 </div>

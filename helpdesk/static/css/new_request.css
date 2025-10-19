@@ -25,20 +25,34 @@
             font-weight: bold;
             border: none;
             background: inherit;
+            cursor: pointer;
         }
+
         option {
-            background: inherit;
-            border: solid 1px black;
+            background: #d8d8d8;
         }
     }
 
     .place {
         input {
             font-weight: bold;
+            text-align: center;
+            padding: 0 5px 0;
+            border: lightslategrey 1px solid;
+            border-radius: 15px;
         }
 
-        /*input:not(:placeholder-shown) {*/
+        input::placeholder {
+            font-weight: bold;
+            color: black;
+        }
+
+        input:focus {
+            width: auto;
+        }
+
         input:valid {
+            text-align: left;
             border: none;
             background: inherit;
         }
@@ -49,6 +63,10 @@
         flex-direction: column;
 
         textarea {
+            margin-top: 0;
+            padding: 10px 15px 10px;
+            border: lightslategrey 2px solid;
+            border-radius: 15px;
             width: calc(100% - 20px);
             resize: vertical;
             min-height: 450px;
@@ -58,16 +76,34 @@
     .files {
         display: flex;
         flex-direction: row;
+
+        label {
+            cursor: pointer;
+        }
+
+        input {
+            background: pink;
+            margin: 0;
+            height: 0;
+            width: 0;
+        }
     }
 
-    button {
+    .submit-btn {
         position: relative;
         margin-left: auto;
-        width: 150px;
-    }
-    button:hover {
+        width: 200px;
+        background: lightslategrey;
+        border: 2px solid lightslategrey;
+        border-radius: 15px;
+        color: white;
         cursor: pointer;
-        background: lightgreen;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+    }
+    .submit-btn:hover {
+        border: 2px solid black;
         transition: 0.4s ease-in-out;
     }
 }

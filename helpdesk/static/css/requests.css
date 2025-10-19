@@ -14,8 +14,6 @@
         }
 
         .request-wrapper {
-            /*border-right: solid rgba(0, 0, 0, 0.8) 1px;*/
-            /*border-left: solid rgba(0, 0, 0, 0.8) 1px;*/
             border-bottom: solid lightslategrey 1px;
             padding: 5px;
             box-shadow: 0 10px 20px -3px rgba(255, 255, 255, 0.3) inset;
@@ -28,17 +26,18 @@
                 flex-direction: row;
                 flex-wrap: wrap;
 
-                .complete-btn-wrapper {
+                div:first-of-type {
                     margin-left: auto;
                 }
 
-                span:first-child {
-                    width: 80px;
+                div:last-of-type {
+                    padding-left: 10px;
+                    margin-right: 10px;
                 }
 
-                /*span:last-child {*/
-                /*    margin-left: 0;*/
-                /*}*/
+                span:first-child {
+                    width: 100px;
+                }
             }
 
             .request-body {
@@ -47,7 +46,7 @@
                 flex-wrap: wrap;
 
                 span:first-child {
-                    width: 80px;
+                    width: 100px;
                 }
 
                 span:last-child {

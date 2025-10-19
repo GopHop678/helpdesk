@@ -14,40 +14,46 @@
         <div class="errors-container">
             <p class="error-message"> Нет заявок</p>
         </div>
-    {% endif %}
 
-    <div class="requests-wrapper">
-    {% for request in requests %}
-        {% if request.category == 'PRINTER' %}
-        <div class="request-wrapper printer">
-        {% elif request.category == 'SOFTWARE' %}
-        <div class="request-wrapper software">
-        {% elif request.category == 'HARDWARE' %}
-        <div class="request-wrapper hardware">
-        {% elif request.category == 'ETC' %}
-        <div class="request-wrapper etc">
-        {% endif %}
-            <div class="request-header">
-                <span class="request-time">
-                    {{ request.request_date|date:"d.m.y" }} | {{ request.request_date|time:"H:i" }}
-                </span>
-                <span class="request-from">{{ request.sender.full_name }}</span>
-                <span class="request-place">{{ request.place }}</span>
-                <div class="complete-btn-wrapper"><button class="complete-btn">Выполнить</button></div>
-                <div class="reject-btn-wrapper"><button class="reject-btn">Отклонить</button></div>
-                <span class="request-status">{{ request.get_status_display }}</span>
-            </div>
+    {% else %}
+
+        <div class="requests-wrapper">
+            {% for request in requests %}
+                {% if request.category == 'PRINTER' %}
+                <div class="request-wrapper printer">
+                {% elif request.category == 'SOFTWARE' %}
+                <div class="request-wrapper software">
+                {% elif request.category == 'HARDWARE' %}
+                <div class="request-wrapper hardware">
+                {% elif request.category == 'ETC' %}
+                <div class="request-wrapper etc">
+                {% endif %}
+                    <div class="request-header">
+                        <span class="request-time">
+            {{ request.request_date|date:"d.m.y" }} | {{ request.request_date|time:"H:i" }}
+                        </span>
+                        <span class="request-from">{{ request.sender.full_name }}</span>
+                        <span class="request-place">{{ request.place }}</span>
+                        {% if user.worker.role == 'admin' %}
+            <div class="complete-btn-wrapper"><button class="complete-btn">Выполнить</button></div>
+            <div class="reject-btn-wrapper"><button class="reject-btn">Отклонить</button></div>
+                        {% elif request.sender == user.worker %}
+            <div class="reject-btn-wrapper"><button class="reject-btn">Отозвать</button></div>
+                        {% endif %}
+                        <div class="request-status">{{ request.get_status_display }}</div>
+                    </div>
 
 
-            <div class="request-body">
-                <span class="request-category">{{ request.get_category_display }}</span>
-                <span class="request-name">{{ request.request_text|truncatechars:'100' }}</span>
-                <span style="text-align: right;">
-                    <a class="request" href="/board/{{ request.id }}">Подробнее</a>
-                </span>
-            </div>
+                    <div class="request-body">
+                        <span class="request-category">{{ request.get_category_display }}</span>
+                        <span class="request-name">{{ request.request_text|truncatechars:'100' }}</span>
+                        <span style="text-align: right;">
+                            <a class="request" href="/board/{{ request.id }}">Подробнее</a>
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-    </div>
+    {%endif %}
 </div>
 {% endblock %}

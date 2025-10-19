@@ -1,7 +1,7 @@
 {% extends 'header.html' %}
 {% load static %}
 
-{% block title %} Вход {% endblock %}
+{% block title %} Регистрация {% endblock %}
 
 {% block styles %}
     <link href="{% static '/css/login.css' %}" rel="stylesheet">
@@ -10,16 +10,18 @@
 {% block body %}
 <div class="login-content">
     <form class="login-form" method="post">
-        {% for error in errors %}
-                <div class="error">{{ error }}</div>
-        {% endfor %}
+            {% for error in errors %}
+                    <div class="error">{{ error }}</div>
+            {% endfor %}
 
         {% csrf_token %}
-        <label>Имя пользователя:</label>
+        <label>Ваше имя:</label>
         <input type="text" name="full_name" required>
         <label>Пароль:</label>
         <input type="password" name="password" required>
-        <input class="submit-btn" type="submit" value="Войти">
+        <label>Повторите пароль:</label>
+        <input type="password" name="password_confirmation" required>
+        <input class="submit-btn" type="submit" value="Зарегистрироваться">
     </form>
 </div>
 {% endblock %}
