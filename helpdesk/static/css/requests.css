@@ -17,7 +17,8 @@
             border-bottom: solid lightslategrey 1px;
             padding: 5px;
             box-shadow: 0 10px 20px -3px rgba(255, 255, 255, 0.3) inset;
-            background: lightgray;
+            /*background: lightgray;*/
+            background: #f0f0f0;
 
             .request-header {
                 color: #434343;
