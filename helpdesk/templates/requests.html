@@ -9,14 +9,11 @@
 
 {% block body %}
 <div class="requests-content">
-
     {% if not requests %}
-        <div class="errors-container">
-            <p class="error-message"> Нет заявок</p>
-        </div>
-
+<!--        <div class="errors-container">-->
+<!--            <p class="error-message"> Нет заявок</p>-->
+<!--        </div>-->
     {% else %}
-
         <div class="requests-wrapper">
             {% for request in requests %}
                 {% if request.category == 'PRINTER' %}
@@ -55,5 +52,25 @@
             {% endfor %}
         </div>
     {%endif %}
+    <div class="request-details-popup">
+        <div id="request-wrapper">
+             <div class="request-header">
+                        <span class="request-time"></span>
+                        <span class="request-sender"></span>
+                        <span class="request-place"></span>
+                        {% if user.worker.role == 'admin' %}
+            <div class="complete-btn-wrapper"><button class="complete-btn">Выполнить</button></div>
+            <div class="reject-btn-wrapper"><button class="reject-btn">Отклонить</button></div>
+                        {% elif request.sender == user.worker %}
+            <div class="reject-btn-wrapper"><button class="reject-btn">Отозвать</button></div>
+                        {% endif %}
+                        <div class="request-status"></div>
+                    </div>
+                    <div class="request-body">
+                        <span class="request-category"></span>
+                        <span class="request-name"></span>
+                    </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

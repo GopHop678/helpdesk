@@ -3,5 +3,6 @@ from .views import *
 
 urlpatterns = [
     path('request/<int:pk>', RequestAPIView.as_view(), name='request_details'),
-    path('files/<int:pk>', UploadedFilesAPIView.as_view(), name='request_files'),
+    path('request/<int:pk>/change_status', ChangeRequestStatusAPIView.as_view(), name='change_status'),
+    path('request/<int:pk>/files', UploadedFilesAPIView.as_view(), name='request_files'),
 ]

@@ -5,9 +5,10 @@ from main.models import Worker, Request, UploadedFile
 class WorkerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Worker
-        fields = [
-            'full_name'
-        ]
+        fields = '__all__'
+        # fields = [
+        #     'full_name'
+        # ]
 
 
 class RequestSerializer(serializers.ModelSerializer):
