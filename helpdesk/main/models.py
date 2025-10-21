@@ -69,4 +69,4 @@ class UploadedFile(models.Model):
         super().delete(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.request} - {self.file_type}'
+        return f'{self.request}.{self.file_type}'
