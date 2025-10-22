@@ -43,34 +43,33 @@
 
                     <div class="request-body">
                         <span class="request-category">{{ request.get_category_display }}</span>
-                        <span class="request-name">{{ request.request_text|truncatechars:'100' }}</span>
-                        <span style="text-align: right;">
-                            <a class="request" href="/board/{{ request.id }}">Подробнее</a>
-                        </span>
+                        <span class="request-text">{{ request.request_text|truncatechars:'100' }}</span>
+                        <span class="request-details-btn" id="details_{{ request.id }}">Подробнее</span>
                     </div>
                 </div>
             {% endfor %}
         </div>
     {%endif %}
-    <div class="request-details-popup">
-        <div id="request-wrapper">
-             <div class="request-header">
-                        <span class="request-time"></span>
-                        <span class="request-sender"></span>
-                        <span class="request-place"></span>
-                        {% if user.worker.role == 'admin' %}
-            <div class="complete-btn-wrapper"><button class="complete-btn">Выполнить</button></div>
-            <div class="reject-btn-wrapper"><button class="reject-btn">Отклонить</button></div>
-                        {% elif request.sender == user.worker %}
-            <div class="reject-btn-wrapper"><button class="reject-btn">Отозвать</button></div>
-                        {% endif %}
-                        <div class="request-status"></div>
-                    </div>
-                    <div class="request-body">
-                        <span class="request-category"></span>
-                        <span class="request-name"></span>
-                    </div>
+    <div id="request-details-popup" style="display:none;">
+        <div class="request-details-wrapper">
+             <div class="request-details-header">
+                <span class="request-details-category"></span>
+                <span class="request-details-time"></span>
+                <span class="request-details-sender"></span>
+                <span class="request-details-place"></span>
+                {% if user.worker.role == 'admin' %}
+                    <div class="complete-btn-wrapper"><button class="complete-btn">Выполнить</button></div>
+                    <div class="reject-btn-wrapper"><button class="reject-btn">Отклонить</button></div>
+                {% elif request.sender == user.worker %}
+                    <div class="reject-btn-wrapper"><button class="reject-btn">Отозвать</button></div>
+                {% endif %}
+                <div class="request-details-status"></div>
+            </div>
+            <div class="request-details-body">
+                <span class="request-details-text"></span>
+            </div>
         </div>
     </div>
 </div>
+<script src="{% static '/scripts/request_details.js' %}"></script>
 {% endblock %}
