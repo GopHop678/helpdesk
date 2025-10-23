@@ -1,21 +1,14 @@
+from datetime import datetime
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Exists, OuterRef, Prefetch
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from .models import Worker, UploadedFile, Request
-
-
-def get_role(user):
-    worker = Worker.objects.get(user=user)
-    if worker.role == 'admin':
-        return 'admin'
-    if worker.role == 'worker':
-        return 'worker'
 
 
 def index(request):
@@ -25,8 +18,7 @@ def index(request):
 @login_required(login_url='login')
 def board_view(request):
     worker = Worker.objects.get(user=request.user)
-    role = get_role(request.user)
-    if role == 'admin':
+    if worker.role == 'admin':
         requests = Request.objects.all()
     else:
         requests = Request.objects.filter(sender=worker)
@@ -36,27 +28,44 @@ def board_view(request):
     })
 
 
+@transaction.atomic
 @login_required(login_url='login')
 def new_request(request):
     if request.method == 'POST':
-        category = request.GET.get('category')
-        place = request.GET.get('place')
-        request_text = request.GET.get('request_text')
-        files = request.GET.get('files')
+        worker = Worker.objects.get(user=request.user)
+        category = request.POST.get('category')
+        place = request.POST.get('place')
+        request_text = request.POST.get('request_text')
+        new_request_obj = Request(
+            category=category,
+            status='WORKING',
+            place=place,
+            request_text=request_text,
+            request_date=datetime.now(),
+            sender=worker
+        )
+        new_request_obj.save()
+
+        uploaded_files = request.FILES.getlist('files')
+        if uploaded_files:
+            for file in uploaded_files:
+                 UploadedFile(
+                    request=new_request_obj,
+                    file=file,
+                    file_type=file.name.split('.')[-1]
+                ).save()
+
         return redirect('board')
     return render(request, 'new_request.html')
 
 
 @login_required(login_url='login')
 def delete_file(request, file_id):
-    role = get_role(user=request.user)
     worker = Worker.objects.get(user=request.user)
     file_to_delete = UploadedFile.objects.get(id=file_id)
     test = file_to_delete.question.test
 
-    if role in ['admin']:
-        pass
-    elif role in ['curator'] and test.curator == worker:
+    if worker.role in ['admin']:
         pass
     else:
         return render(request, '403.html', {'messages': ['В доступе отказано']})

@@ -27,7 +27,7 @@ class Worker(models.Model):
 
 
 class Request(models.Model):
-    request_type = [
+    request_types = [
         ('PRINTER', 'Принтер'),
         ('SOFTWARE', 'Программа'),
         ('HARDWARE', 'Компьютер'),
@@ -44,11 +44,11 @@ class Request(models.Model):
     place = models.CharField(max_length=128, null=False)
     request_date = models.DateTimeField(null=False)
     sender = models.ForeignKey(Worker, on_delete=models.CASCADE)
-    category = models.CharField(choices=request_type)
+    category = models.CharField(choices=request_types)
     status = models.CharField(choices=status_choices, default='WORKING')
 
     def __str__(self):
-        return f'{self.request_text[:50]} from {self.sender}'
+        return f'{self.request_text[:50]} от {self.sender}'
 
 
 class UploadedFile(models.Model):
@@ -56,7 +56,9 @@ class UploadedFile(models.Model):
         ('docx', 'Word'),
         ('xlsx', 'Excel'),
         ('pdf', 'PDF'),
-        ('png', 'Картинка'),
+        ('png', 'Картинка PNG'),
+        ('jpg', 'Картинка JPG'),
+        ('jpeg', 'Картинка JPEG'),
     ]
 
     request = models.ForeignKey(Request, on_delete=models.CASCADE)

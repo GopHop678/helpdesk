@@ -36,7 +36,6 @@ async function showPopup (e) {
 
     const popup = document.getElementById('request-details-popup');
     popup.addEventListener('click', (e) => {
-        // Если клик был на самом popup (не на его дочерних элементах)
         if (e.target === popup) {
             popup.style.display = 'none';
         }
@@ -57,6 +56,21 @@ async function showPopup (e) {
             requestText.textContent = requestObj.request_text;
 
     popup.style.display = 'flex';
+
+
+    const responseFiles = await fetch(`http://localhost:8000/api/request/${requestId}/files`);
+    const files = await responseFiles.json();
+    for (const file of files) {
+        if (['png', 'jpg', 'jpeg'].includes(file.file_type)) {
+            const newImage = document.createElement('img');
+            newImage.src = file.file;
+            wrapper.appendChild(newImage);
+        } else {
+            const newFile = document.createElement('a');
+            newFile.textContent = decodeURIComponent(file.file).split('/').slice(-1);
+            wrapper.appendChild(newFile);
+        }
+    }
 }
 
 

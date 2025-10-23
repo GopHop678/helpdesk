@@ -10,13 +10,13 @@
 {% block body %}
 <div class="new-request-content">
     <div class="new-request-wrapper">
-        <form method="post" id="requestForm">
+        <form method="post" id="requestForm" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="form-group category">
-                <label>Проблема:</label>
+                <label>С чем проблема:</label>
                 <select name="category" required>
-                    <option value="">Выберите категорию</option>
+                    <option value="">Выберите из списка</option>
                     <option value="PRINTER">Принтер</option>
                     <option value="SOFTWARE">Программа</option>
                     <option value="HARDWARE">Компьютер</option>
@@ -35,13 +35,15 @@
             </div>
 
             <div class="form-group files">
-                <span>Доп. файлы:</span>
-                <label for="files">Выбрать файлы</label>
-                <input id="files" name="files" type="file" accept="image/*" multiple>
+                <label class="files-label" for="files-input">Прикрпеить файлы</label>
+                <input id="files-input" name="files" type="file"
+                       accept="image/*, video/*, .pdf, .doc, .docx, .xlsx, .txt" multiple>
+                <div class="files-list"></div>
             </div>
 
             <button class="submit-btn" type="submit">Создать заявку</button>
         </form>
     </div>
 </div>
+<script src="{% static '/scripts/new_request.js' %}"></script>
 {% endblock %}

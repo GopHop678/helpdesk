@@ -13,10 +13,11 @@
 #requestForm {
     display: flex;
     flex-direction: column;
+    gap: 20px;
     margin: 15px;
 
     .form-group > * {
-        margin: 10px;
+        margin: 0 10px;
         box-sizing: border-box;
     }
 
@@ -37,7 +38,7 @@
         input {
             font-weight: bold;
             text-align: center;
-            padding: 0 5px 0;
+            padding: 3px 5px 3px;
             border: lightslategrey 1px solid;
             border-radius: 15px;
         }
@@ -63,13 +64,14 @@
         flex-direction: column;
 
         textarea {
-            margin-top: 0;
+            margin-top: 10px;
             padding: 10px 15px 10px;
             border: lightslategrey 2px solid;
             border-radius: 15px;
             width: calc(100% - 20px);
             resize: vertical;
             min-height: 450px;
+            font-size: 16px;
         }
     }
 
@@ -77,21 +79,41 @@
         display: flex;
         flex-direction: row;
 
-        label {
+        .files-label {
+            background: #d8d8d8;
+            border: 2px solid lightslategrey;
+            border-radius: 10px;
+            color: black;
             cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 5px 10px;
+            text-align: center;
+        }
+
+        .files-label:hover {
+            border: 2px solid black;
+            transition: 0.4s ease-in-out;
         }
 
         input {
-            background: pink;
             margin: 0;
+            padding: 0;
             height: 0;
             width: 0;
+        }
+
+        .files-list {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 
     .submit-btn {
         position: relative;
         margin-left: auto;
+        text-align: center;
         width: 200px;
         background: lightslategrey;
         border: 2px solid lightslategrey;
