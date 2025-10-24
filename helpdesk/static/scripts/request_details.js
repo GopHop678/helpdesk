@@ -58,17 +58,26 @@ async function showPopup (e) {
     popup.style.display = 'flex';
 
 
+    const filesWrapper = wrapper.querySelector('.request-details-files');
+    const imagesWrapper = filesWrapper.querySelector('.request-details-images');
+    const docsWrapper = filesWrapper.querySelector('.request-details-docs');
+
+    imagesWrapper.innerHTML = '';
+    docsWrapper.innerHTML = '';
+
     const responseFiles = await fetch(`http://localhost:8000/api/request/${requestId}/files`);
     const files = await responseFiles.json();
+
     for (const file of files) {
         if (['png', 'jpg', 'jpeg'].includes(file.file_type)) {
             const newImage = document.createElement('img');
             newImage.src = file.file;
-            wrapper.appendChild(newImage);
+            imagesWrapper.appendChild(newImage);
         } else {
             const newFile = document.createElement('a');
+            newFile.href = file.file;
             newFile.textContent = decodeURIComponent(file.file).split('/').slice(-1);
-            wrapper.appendChild(newFile);
+            docsWrapper.appendChild(newFile);
         }
     }
 }
@@ -76,8 +85,6 @@ async function showPopup (e) {
 
 document.addEventListener('DOMContentLoaded', function() {
     const detailsButtons = Array.from(document.getElementsByClassName('request-details-btn'));
-    // console.log(detailsButtons);
-
     detailsButtons.forEach(detailsButton =>
         detailsButton.addEventListener('click', () => {showPopup(detailsButton)}))
 });
