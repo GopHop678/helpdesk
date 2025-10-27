@@ -181,3 +181,9 @@ CORS_ALLOW_METHODS = [
     'GET',
     'PUT',
 ]
+
+CHANNEL_LAYERS = {
+    'default': {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
+}

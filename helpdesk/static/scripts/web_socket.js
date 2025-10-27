@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const socket = new WebSocket("ws://localhost:8000/ws/tmp/");
+    const socket = new WebSocket("ws://" + window.location.host + "/ws/tmp/");
     socket.onmessage = function(event) {
-        console.log(JSON.parse(event.data));
+        const data = JSON.parse(event.data);
+        console.log('Received data: ');
+        console.log(data);
     }
 });
