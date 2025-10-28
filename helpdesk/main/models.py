@@ -90,7 +90,6 @@ def send_request_notification(sender, instance, created, **kwargs):
                 'message': {
                     'action': 'new_request',
                     'request_id': instance.id,
-                    'request_text': instance.request_text,
                 }
             }
         )
