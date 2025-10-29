@@ -1,4 +1,16 @@
-import { convertDateTime } from "./convert_datetime";
+function convertDateTime(inputDateTime) {
+    // Создаем объект Date из входной строки
+    const date = new Date(inputDateTime);
+    // Извлекаем компоненты даты
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(-2);
+    // Извлекаем компоненты времени
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    // Форматируем результат
+    return `${day}.${month}.${year} | ${hours}:${minutes}`;
+}
 
 
 function displayCategory(category) {
@@ -55,7 +67,7 @@ async function showPopup (e) {
     const files = await responseFiles.json();
 
     for (const file of files) {
-        if (['png', 'jpg', 'jpeg'].includes(file.file_type)) {
+        if (['png', 'jpg', 'jpeg'].includes(file.file_type.toLowerCase())) {
             const newImage = document.createElement('img');
             newImage.src = file.file;
             imagesWrapper.appendChild(newImage);

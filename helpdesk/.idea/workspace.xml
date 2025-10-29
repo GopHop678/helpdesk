@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e09e1958-f66f-475e-a17d-5ca2f2f0016c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/scripts/convert_datetime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/test.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/scripts/convert_datetime.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/scripts/request_details.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/scripts/request_details.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/scripts/web_socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/scripts/web_socket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/test_edit.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +68,8 @@
       <workItem from="1761612819897" duration="1635000" />
       <workItem from="1761614722760" duration="5490000" />
       <workItem from="1761629108478" duration="2942000" />
+      <workItem from="1761696269087" duration="2386000" />
+      <workItem from="1761713144719" duration="2420000" />
     </task>
     <servers />
   </component>
