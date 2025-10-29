@@ -16,12 +16,13 @@ class RequestAPIView(APIView):
 class ChangeRequestStatusAPIView(APIView):
     def put(self, request, pk):
         try:
-            new_status = request.data.get('new_status')
+            new_status = request.data
             request_obj = Request.objects.get(pk=pk)
             request_obj.status = new_status
             request_obj.save()
             return Response({'response': 'success'}, status=200)
-        except:
+        except Exception as e:
+            print(e)
             return Response({'response': 'error'}, status=400)
 
 
