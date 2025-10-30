@@ -28,14 +28,14 @@ function displayStatus(status) {
     const statuses = {
         WORKING: 'В работе',
         REJECTED: 'Отклонено',
-        COMPLETE: 'Выполнено',
+        COMPLETED: 'Выполнено',
     }
     return statuses[status];
 }
 
 
 async function UpdateBoard(pk) {
-    const response = await fetch(`http://localhost:8000/api/request/${pk}`);
+    const response = await fetch(`/api/request/${pk}`);
     const requestObj = await response.json();
 
     const board = document.querySelector(".requests-wrapper");

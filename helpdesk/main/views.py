@@ -19,9 +19,9 @@ def index(request):
 def board_view(request):
     worker = Worker.objects.get(user=request.user)
     if worker.role == 'admin':
-        requests = Request.objects.all()
+        requests = Request.objects.filter(status='WORKING')
     else:
-        requests = Request.objects.filter(sender=worker)
+        requests = Request.objects.filter(sender=worker, status='WORKING')
     requests = requests.order_by('-request_date')
     return render(request, 'requests.html', {
         'requests': requests,

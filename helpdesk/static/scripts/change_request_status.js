@@ -2,20 +2,20 @@ async function changeStatus (e) {
     const requestId = e.id.split('-')[2];
     const changeTo = e.id.slice(0, 1);
     let newStatus = ''
-    console.log(requestId);
     if (changeTo === 'c') {
         newStatus = 'COMPLETED'
     } else if (changeTo === 'r') {
         newStatus = 'REJECTED'
     }
-    console.log(newStatus);
-    const response = await fetch(`http://localhost:8000/api/request/${requestId}/change_status`, {
+    const response = await fetch(`/api/request/${requestId}/change_status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newStatus),
     });
     const responseMsg = await response.json();
-    console.log(responseMsg);
+    if (response.status !== 200) {
+        window.location.reload(); //////////
+    }
 }
 
 

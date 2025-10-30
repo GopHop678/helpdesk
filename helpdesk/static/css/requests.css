@@ -1,6 +1,6 @@
 .requests-content {
 
-    .requests-wrapper {
+    .requests-wrapper, .done-requests-wrapper {
         margin: 2%;
         display: flex;
         flex-direction: column;
@@ -81,6 +81,13 @@
         .hardware {
             box-shadow: 0 -25px 30px -25px #d4a9ff inset;
         }
+
+        .completed {
+            box-shadow: 0 -25px 60px -15px #a8d6a9 inset;
+        }
+        .rejected {
+            box-shadow: 0 -25px 60px -25px #ffacac inset;
+        }
     }
 
     #request-details-popup {
@@ -140,7 +147,11 @@
                     flex-direction: column;
 
                     img {
-                        width: 80vw;
+                        border-radius: 15px;
+                        border: solid lightslategrey 2px;
+                        border-top: solid lightslategrey 25px;
+                        max-width: 80vw;
+                        min-width: 40vw;
                         max-height: 60vh;
                         aspect-ratio: auto;
                     }

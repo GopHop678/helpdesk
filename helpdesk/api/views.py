@@ -13,6 +13,13 @@ class RequestAPIView(APIView):
         return Response(serializer.data, status=200)
 
 
+class DoneRequestsAPIView(APIView):
+    def get(self, request):
+        request_obj = Request.objects.filter(status__in=['COMPLETED', 'REJECTED'])
+        serializer = RequestSerializer(request_obj, many=True)
+        return Response(serializer.data, status=200)
+
+
 class ChangeRequestStatusAPIView(APIView):
     def put(self, request, pk):
         try:

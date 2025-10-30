@@ -25,7 +25,7 @@ function displayCategory(category) {
 
 async function showPopup (e) {
     const requestId = e.id.slice(8);
-    const response = await fetch(`http://localhost:8000/api/request/${requestId}`);
+    const response = await fetch(`/api/request/${requestId}`);
     const requestObj = await response.json();
 
     if (!requestObj) {
@@ -53,6 +53,22 @@ async function showPopup (e) {
         const requestText = requestBody.querySelector('.request-details-text');
             requestText.textContent = requestObj.request_text;
 
+    const detailsBtnCollection = Array.from(wrapper.getElementsByClassName('details-btn'));
+    const detailsBtns = Array.from(detailsBtnCollection);
+
+
+    // add btns handlers
+
+    if (['COMPLETED', 'REJECTED'].includes(requestObj.status)) {
+        detailsBtns.forEach(btn => {
+            btn.style.display = 'none';
+        })
+    } else {
+        detailsBtns.forEach(btn => {
+            btn.style.display = 'inherit';
+        })
+    }
+
     popup.style.display = 'flex';
 
 
@@ -63,7 +79,7 @@ async function showPopup (e) {
     imagesWrapper.innerHTML = '';
     docsWrapper.innerHTML = '';
 
-    const responseFiles = await fetch(`http://localhost:8000/api/request/${requestId}/files`);
+    const responseFiles = await fetch(`/api/request/${requestId}/files`);
     const files = await responseFiles.json();
 
     for (const file of files) {
