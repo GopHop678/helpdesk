@@ -80,9 +80,8 @@ class UploadedFile(models.Model):
 
 @receiver(post_save, sender=Request)
 def send_request_notification(sender, instance, created, **kwargs):
+    channel_layer = get_channel_layer()
     if created:
-        channel_layer = get_channel_layer()
-
         async_to_sync(channel_layer.group_send)(
             'notifications',
             {

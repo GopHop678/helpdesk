@@ -1,9 +1,13 @@
-from django.conf import settings
-from django.contrib.auth.models import User
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from main.models import Worker, UploadedFile, Request
 from .serializers import RequestSerializer, UploadedFilesSerializer
+
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
 
 
 class RequestAPIView(APIView):
@@ -21,13 +25,15 @@ class DoneRequestsAPIView(APIView):
 
 
 class ChangeRequestStatusAPIView(APIView):
+    authentication_classes = [CsrfExemptSessionAuthentication]
+
     def put(self, request, pk):
         try:
             new_status = request.data
             request_obj = Request.objects.get(pk=pk)
             request_obj.status = new_status
             request_obj.save()
-            return Response({'response': 'success'}, status=200)
+            return Response({'request_id': request_obj.id}, status=200)
         except Exception as e:
             print(e)
             return Response({'response': 'error'}, status=400)

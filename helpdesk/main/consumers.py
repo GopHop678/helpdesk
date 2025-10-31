@@ -28,31 +28,3 @@ class WSConsumer(AsyncWebsocketConsumer):
             'type': 'notification',
             'data': message
         }))
-
-
-# class WSConsumer(WebsocketConsumer):
-#     def connect(self):
-#         # Подключаемся к группе 'notifications'
-#         # self.room_group_name = 'notifications'
-#         #
-#         # # Добавляем канал в группу
-#         # self.channel_layer.group_add(
-#         #     self.room_group_name,
-#         #     self.channel_name
-#         # )
-#
-#         self.accept()
-#
-#         response = json.dumps({
-#             'message': 'success',
-#         })
-#
-#         self.send(response)
-#
-#
-#     def disconnect(self, close_code):
-#         # Удаляем канал из группы при отключении
-#         self.channel_layer.group_discard(
-#             self.room_group_name,
-#             self.channel_name
-#         )

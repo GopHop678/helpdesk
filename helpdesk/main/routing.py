@@ -3,5 +3,5 @@ from .consumers import WSConsumer
 
 
 ws_urlpatterns = [
-    path('ws/tmp/', WSConsumer.as_asgi())
+    path('ws/board/', WSConsumer.as_asgi())
 ]

@@ -83,10 +83,10 @@
         }
 
         .completed {
-            box-shadow: 0 -25px 60px -15px #a8d6a9 inset;
+            box-shadow: 0 -25px 30px -15px #a8d6a9 inset;
         }
         .rejected {
-            box-shadow: 0 -25px 60px -25px #ffacac inset;
+            box-shadow: 0 -25px 30px -25px #ffacac inset;
         }
     }
 

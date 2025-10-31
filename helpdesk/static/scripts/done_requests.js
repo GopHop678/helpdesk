@@ -1,51 +1,16 @@
-function convertDateTime(inputDateTime) {
-    // Создаем объект Date из входной строки
-    const date = new Date(inputDateTime);
-    // Извлекаем компоненты даты
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).slice(-2);
-    // Извлекаем компоненты времени
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    // Форматируем результат
-    return `${day}.${month}.${year} | ${hours}:${minutes}`;
-}
-
-
-function displayCategory(category) {
-    const categories = {
-        PRINTER: 'Принтер',
-        SOFTWARE: 'Программа',
-        HARDWARE: 'Компьютер',
-        ETC: 'Другое',
-    }
-    return categories[category];
-}
-
-
-function displayStatus(status) {
-    const statuses = {
-        WORKING: 'В работе',
-        REJECTED: 'Отклонено',
-        COMPLETED: 'Выполнено',
-    }
-    return statuses[status];
-}
-
-
-document.addEventListener('DOMContentLoaded', async function() {
+async function loadDoneRequests() {
     const doneRequestsWrapper = document.getElementById('done-requests-wrapper');
+    doneRequestsWrapper.innerHTML = '';
 
     const response = await fetch(`/api/requests/done`);
     const requestObjs = await response.json();
 
     requestObjs.forEach((requestObj) => {
         const requestWrapper = document.createElement("div");
-            requestWrapper.classList.add('request-wrapper');
-            const newRequestHeader = document.createElement("div");
+        requestWrapper.classList.add('request-wrapper');
+        const newRequestHeader = document.createElement("div");
         newRequestHeader.classList.add('request-header');
-            const newRequestBody = document.createElement("div");
+        const newRequestBody = document.createElement("div");
         newRequestBody.classList.add('request-body');
 
         newRequestHeader.innerHTML = `
@@ -74,4 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         requestWrapper.append(newRequestBody);
         doneRequestsWrapper.prepend(requestWrapper);
     });
-});
+}
+
+
+document.addEventListener('DOMContentLoaded', loadDoneRequests());

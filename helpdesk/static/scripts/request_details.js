@@ -1,28 +1,3 @@
-function convertDateTime(inputDateTime) {
-    // Создаем объект Date из входной строки
-    const date = new Date(inputDateTime);
-    // Извлекаем компоненты даты
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).slice(-2);
-    // Извлекаем компоненты времени
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    // Форматируем результат
-    return `${day}.${month}.${year} | ${hours}:${minutes}`;
-}
-
-
-function displayCategory(category) {
-    const categories = {
-        PRINTER: 'Принтер',
-        SOFTWARE: 'Программа',
-        HARDWARE: 'Компьютер',
-        ETC: 'Другое',
-    }
-    return categories[category];
-}
-
 async function showPopup (e) {
     const requestId = e.id.slice(8);
     const response = await fetch(`/api/request/${requestId}`);
@@ -53,11 +28,32 @@ async function showPopup (e) {
         const requestText = requestBody.querySelector('.request-details-text');
             requestText.textContent = requestObj.request_text;
 
-    const detailsBtnCollection = Array.from(wrapper.getElementsByClassName('details-btn'));
+    const detailsBtnCollection = wrapper.getElementsByClassName('details-btn');
     const detailsBtns = Array.from(detailsBtnCollection);
 
+    const completeBtn = wrapper.querySelector('.complete-btn')
+    const rejectBtn = wrapper.querySelector('.reject-btn')
 
-    // add btns handlers
+    console.log(detailsBtnCollection);
+    console.log(detailsBtns);
+    console.log(completeBtn);
+    console.log(rejectBtn);
+    console.log(true);
+
+    if (completeBtn) {
+        completeBtn.id = `complete_-btn-${requestId}`;
+        completeBtn.addEventListener('click', () => {
+            changeStatus(completeBtn);
+            popup.style.display = 'none';
+        })
+    }
+    if (rejectBtn) {
+        rejectBtn.id = `reject_-btn-${requestId}`;
+        rejectBtn.addEventListener('click', () => {
+            changeStatus(rejectBtn);
+            popup.style.display = 'none';
+        })
+    }
 
     if (['COMPLETED', 'REJECTED'].includes(requestObj.status)) {
         detailsBtns.forEach(btn => {
@@ -90,6 +86,7 @@ async function showPopup (e) {
         } else {
             const newFile = document.createElement('a');
             newFile.href = file.file;
+            newFile.target = '_blank';
             newFile.textContent = decodeURIComponent(file.file).split('/').slice(-1);
             docsWrapper.appendChild(newFile);
         }
