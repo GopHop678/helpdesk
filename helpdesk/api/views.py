@@ -29,11 +29,14 @@ class ChangeRequestStatusAPIView(APIView):
 
     def put(self, request, pk):
         try:
-            new_status = request.data
             request_obj = Request.objects.get(pk=pk)
-            request_obj.status = new_status
-            request_obj.save()
-            return Response({'request_id': request_obj.id}, status=200)
+            if request_obj.status == 'WORKING':
+                new_status = request.data
+                request_obj.status = new_status
+                request_obj.save()
+                return Response({'request_id': request_obj.id}, status=200)
+            else:
+                raise Exception
         except Exception as e:
             print(e)
             return Response({'response': 'error'}, status=400)

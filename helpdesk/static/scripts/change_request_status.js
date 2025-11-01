@@ -1,8 +1,6 @@
 async function moveRequestToDone(pk) {
     const requests = document.querySelector('.requests-wrapper');
-    console.log(requests);
     const requestToRemove = requests.querySelector(`#request-wrapper-${pk}`);
-    console.log(requestToRemove);
     requestToRemove.remove();
     loadDoneRequests();
 }

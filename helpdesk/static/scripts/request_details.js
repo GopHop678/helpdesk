@@ -28,39 +28,30 @@ async function showPopup (e) {
         const requestText = requestBody.querySelector('.request-details-text');
             requestText.textContent = requestObj.request_text;
 
-    const detailsBtnCollection = wrapper.getElementsByClassName('details-btn');
-    const detailsBtns = Array.from(detailsBtnCollection);
-
     const completeBtn = wrapper.querySelector('.complete-btn')
     const rejectBtn = wrapper.querySelector('.reject-btn')
 
-    console.log(detailsBtnCollection);
-    console.log(detailsBtns);
-    console.log(completeBtn);
-    console.log(rejectBtn);
-    console.log(true);
-
     if (completeBtn) {
         completeBtn.id = `complete_-btn-${requestId}`;
-        completeBtn.addEventListener('click', () => {
+        completeBtn.onclick = () => {
             changeStatus(completeBtn);
             popup.style.display = 'none';
-        })
+        }
     }
     if (rejectBtn) {
         rejectBtn.id = `reject_-btn-${requestId}`;
-        rejectBtn.addEventListener('click', () => {
+        rejectBtn.onclick = () => {
             changeStatus(rejectBtn);
             popup.style.display = 'none';
-        })
+        }
     }
 
     if (['COMPLETED', 'REJECTED'].includes(requestObj.status)) {
-        detailsBtns.forEach(btn => {
+        [completeBtn, rejectBtn].forEach(btn => {
             btn.style.display = 'none';
         })
     } else {
-        detailsBtns.forEach(btn => {
+        [completeBtn, rejectBtn].forEach(btn => {
             btn.style.display = 'inherit';
         })
     }
