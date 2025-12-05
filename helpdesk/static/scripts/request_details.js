@@ -28,30 +28,31 @@ async function showPopup (e) {
         const requestText = requestBody.querySelector('.request-details-text');
             requestText.textContent = requestObj.request_text;
 
+    const detailsBtnCollection = wrapper.getElementsByClassName('details-btn');
+    const detailsBtns = Array.from(detailsBtnCollection);
+
     const completeBtn = wrapper.querySelector('.complete-btn')
     const rejectBtn = wrapper.querySelector('.reject-btn')
 
     if (completeBtn) {
         completeBtn.id = `complete_-btn-${requestId}`;
-        completeBtn.onclick = () => {
+        completeBtn.addEventListener('click', () => {
             changeStatus(completeBtn);
-            popup.style.display = 'none';
-        }
+        })
     }
     if (rejectBtn) {
         rejectBtn.id = `reject_-btn-${requestId}`;
-        rejectBtn.onclick = () => {
+        rejectBtn.addEventListener('click', () => {
             changeStatus(rejectBtn);
-            popup.style.display = 'none';
-        }
+        })
     }
 
     if (['COMPLETED', 'REJECTED'].includes(requestObj.status)) {
-        [completeBtn, rejectBtn].forEach(btn => {
+        detailsBtns.forEach(btn => {
             btn.style.display = 'none';
         })
     } else {
-        [completeBtn, rejectBtn].forEach(btn => {
+        detailsBtns.forEach(btn => {
             btn.style.display = 'inherit';
         })
     }
@@ -77,7 +78,6 @@ async function showPopup (e) {
         } else {
             const newFile = document.createElement('a');
             newFile.href = file.file;
-            newFile.target = '_blank';
             newFile.textContent = decodeURIComponent(file.file).split('/').slice(-1);
             docsWrapper.appendChild(newFile);
         }

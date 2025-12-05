@@ -1,11 +1,3 @@
-async function moveRequestToDone(pk) {
-    const requests = document.querySelector('.requests-wrapper');
-    const requestToRemove = requests.querySelector(`#request-wrapper-${pk}`);
-    requestToRemove.remove();
-    loadDoneRequests();
-}
-
-
 async function changeStatus (e) {
     const requestId = e.id.split('-')[2];
     const changeTo = e.id.slice(0, 1);
@@ -22,7 +14,7 @@ async function changeStatus (e) {
     });
     const responseMsg = await response.json();
     if (response.status === 200) {
-        moveRequestToDone(responseMsg.request_id);
+        window.location.reload();
     }
 }
 

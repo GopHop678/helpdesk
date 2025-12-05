@@ -1,4 +1,4 @@
-async function showNewRequest(pk) {
+async function UpdateBoard(pk) {
     const response = await fetch(`/api/request/${pk}`);
     const requestObj = await response.json();
 
@@ -6,12 +6,11 @@ async function showNewRequest(pk) {
     const category = requestObj.category;
 
     const requestWrapper = document.createElement("div");
-    requestWrapper.classList.add('request-wrapper');
-    requestWrapper.id = `request-wrapper-${pk}`;
+        requestWrapper.classList.add('request-wrapper');
     const newRequestHeader = document.createElement("div");
-    newRequestHeader.classList.add('request-header');
+        newRequestHeader.classList.add('request-header');
     const newRequestBody = document.createElement("div");
-    newRequestBody.classList.add('request-body');
+        newRequestBody.classList.add('request-body');
 
     newRequestHeader.innerHTML = `
         <span class="request-time">${convertDateTime(requestObj.request_date)}</span>
@@ -66,8 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
     socket.onmessage = function(event) {
         const data = JSON.parse(event.data);
         const requestId = data.data.request_id;
-        if (data.data.action === "new_request") {
-            showNewRequest(requestId);
-        }
+        UpdateBoard(requestId);
     }
 });

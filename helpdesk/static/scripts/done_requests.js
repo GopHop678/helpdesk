@@ -1,16 +1,15 @@
-async function loadDoneRequests() {
+document.addEventListener('DOMContentLoaded', async function() {
     const doneRequestsWrapper = document.getElementById('done-requests-wrapper');
-    doneRequestsWrapper.innerHTML = '';
 
     const response = await fetch(`/api/requests/done`);
     const requestObjs = await response.json();
 
     requestObjs.forEach((requestObj) => {
         const requestWrapper = document.createElement("div");
-        requestWrapper.classList.add('request-wrapper');
-        const newRequestHeader = document.createElement("div");
+            requestWrapper.classList.add('request-wrapper');
+            const newRequestHeader = document.createElement("div");
         newRequestHeader.classList.add('request-header');
-        const newRequestBody = document.createElement("div");
+            const newRequestBody = document.createElement("div");
         newRequestBody.classList.add('request-body');
 
         newRequestHeader.innerHTML = `
@@ -39,7 +38,4 @@ async function loadDoneRequests() {
         requestWrapper.append(newRequestBody);
         doneRequestsWrapper.prepend(requestWrapper);
     });
-}
-
-
-document.addEventListener('DOMContentLoaded', loadDoneRequests());
+});

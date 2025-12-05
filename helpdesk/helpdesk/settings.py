@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-sre7^yrv$=x^wchj@wo=6(*s_2il(%khj=_pob6l=gv12wdfyu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['helpdesk.asu', '192.168.4.173']
+CSRF_TRUSTED_ORIGINS = ['http://helpdesk.asu']
 
 
 # Application definition
